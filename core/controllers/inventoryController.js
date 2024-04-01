@@ -8,7 +8,7 @@ router.get('/noInclude', async (req, res) => {
     // #swagger.start
     // #swagger.tags = ['Inventory']
     // #swagger.path = ['/inventory/noInclude']
-    // #swagger.summary = 'Endpoint to get information of all inventory
+    // #swagger.summary = 'Endpoint to get information of inventory
     // #swagger.method = 'get'
     // #swagger.produces = ['application/json']
     // #swagger.end

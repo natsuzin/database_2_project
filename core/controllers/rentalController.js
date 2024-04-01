@@ -5,6 +5,15 @@ const InventoryModel = require("../database/models/inventoryModel");
 const CustomerModel = require("../database/models/customerModel");
 const StaffModel = require("../database/models/staffModel");
 
+router.get('/noInclude', async (req, res) => {
+    try {
+        const rental = await RentalModel.findAll();
+        res.status(201).json(rental);
+    } catch (err) {
+        res.status(401).json(err);
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
         const rental = await RentalModel.findAll({
@@ -28,6 +37,36 @@ router.get('/', async (req, res) => {
             ]
         });
         res.status(201).json(rental);
+    } catch (err) {
+        res.status(401).json(err);
+    }
+});
+
+router.post('/', async (req, res) => {
+    try {
+        const { inventoryId, customerId, staffId } = req.body;
+        if (!isInteger(inventoryId) || !isInteger(customerId) || !isInteger(staffId)) {
+            return res.status(400).json({ message: "Inventory, customer and staff IDs must be integers" });
+        }
+        const inventory = await InventoryModel.findByPk(inventoryId);
+        if (!inventory) {
+            res.status(404).json({ message: "The inventory doesn´t exist." });
+        }
+        const customer = await CustomerModel.findByPk(customerId);
+        if (!customer) {
+            res.status
+            (404).json({ message: "The customer doesn´t exist." });
+        }
+        const staff = await StaffModel.findByPk(staffId);
+        if (!staff) {
+            res.status(404).json({ message: "The staff doesn´t exist." });
+        }
+        const newRental = await RentalModel.create({
+            inventory_id: inventoryId,
+            customer_id: customerId,
+            staff_id: staffId
+        })
+        res.send({ newRental });
     } catch (err) {
         res.status(401).json(err);
     }

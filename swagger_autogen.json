@@ -11,13 +11,10 @@
     "http"
   ],
   "paths": {
-    "/": {
+    "/noInclude": {
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "201": {
             "description": "Created"
           },
@@ -27,12 +24,62 @@
         }
       }
     },
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "inventoryId": {
+                  "example": "any"
+                },
+                "customerId": {
+                  "example": "any"
+                },
+                "staffId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/inventory/noInclude": {
       "get": {
         "tags": [
           "Inventory"
         ],
-        "summary": "Endpoint to get information of all inventory",
+        "summary": "Endpoint to get information of inventory",
         "description": "",
         "produces": [
           "application/json"
