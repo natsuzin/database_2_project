@@ -13,7 +13,7 @@ db.authenticate().then(() => {
 });
 
 app.use(bodyParser.json());
-app.use(`/api-doc`, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(`/api-doc`, swaggerUi.serve, swaggerUi.setup(swaggerDocument)); //localhost:3001/api-doc
 app.use('/rental', require('./core/controllers/rentalController')); // uma rota do servidor para Rental
 app.use('/inventory', require('./core/controllers/inventoryController')); // uma rota do servidor para Inventory
 app.use('/customer', require('./core/controllers/customerController')); // uma rota do servidor para Customer

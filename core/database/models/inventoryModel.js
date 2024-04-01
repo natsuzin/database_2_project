@@ -2,6 +2,8 @@
 
 const sequelize = require("../server");
 const { Sequelize, DataTypes } = require('sequelize');
+const FilmModel = require("./filmModel");
+const StoreModel = require("./storeModel");
 
 const Inventory = sequelize.define('Inventory', {
   inventory_id: {
@@ -27,6 +29,19 @@ const Inventory = sequelize.define('Inventory', {
 
   tableName: 'inventory',
   timestamps: false,
+});
+
+// Definindo as associações entre os modelos
+Inventory.belongsTo(FilmModel, {
+  foreignKey: 'film_id',
+  onDelete: 'RESTRICT',
+  onUpdate: 'CASCADE'
+});
+
+Inventory.belongsTo(StoreModel, {
+  foreignKey: 'store_id',
+  onDelete: 'RESTRICT',
+  onUpdate: 'CASCADE'
 });
 
 module.exports = Inventory;

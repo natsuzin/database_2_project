@@ -2,6 +2,8 @@
 
 const sequelize = require("../server");
 const { Sequelize, DataTypes } = require('sequelize');
+const StoreModel = require('./storeModel');
+const AddressModel = require('./addressModel');
 
 const Customer = sequelize.define('Customer', {
     customer_id: {
@@ -47,5 +49,18 @@ const Customer = sequelize.define('Customer', {
     tableName: 'customer',
     timestamps: false,
   });
+
+// Definindo a associação entre o modelo Customer e o modelo Address
+Customer.belongsTo(StoreModel, {
+    foreignKey: 'store_id',
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE'
+});
+
+Customer.belongsTo(AddressModel, {
+    foreignKey: 'address_id',
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE'
+});
 
   module.exports = Customer;
