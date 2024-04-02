@@ -38,6 +38,7 @@ const Customer = sequelize.define('Customer', {
     },
     create_date: {
       type: DataTypes.DATE,
+      defaultValue: new Date(),
       allowNull: false,
     },
     last_update: {
