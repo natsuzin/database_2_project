@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { inventoryId, customerId, staffId } = req.body;
-        if (!isInteger(inventoryId) || !isInteger(customerId) || !isInteger(staffId)) {
+        if (!Number.isInteger(inventoryId) || !Number.isInteger(customerId) || !Number.isInteger(staffId)) {
             return res.status(400).json({ message: "Inventory, customer and staff IDs must be integers" });
         }
         const inventory = await InventoryModel.findByPk(inventoryId);
@@ -68,6 +68,7 @@ router.post('/', async (req, res) => {
         })
         res.send({ newRental });
     } catch (err) {
+        console.log(err);
         res.status(401).json(err);
     }
 });

@@ -35,24 +35,28 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { addressId, storeId } = req.body;
-        if (!isInteger(addressId) || !isInteger(storeId)) {
+        const { firstName, lastName, email, addressId, storeId } = req.body;
+        if (!Number.isInteger(addressId) || !Number.isInteger(storeId)) {
             return res.status(400).json({ message: "Address and store IDs must be integers" });
         }
         const address = await AddressModel.findByPk(addressId);
-        if (!film) {
+        if (!address) {
             res.status(404).json({ message: "The address doesn´t exist." });
         }
         const store = await StoreModel.findByPk(storeId);
         if (!store) {
             res.status(404).json({ message: "The store doesn´t exist." });
         }
-        const newInventory = await InventoryModel.create({
+        const newCustomer = await CustomerModel.create({
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
             address_id: addressId,
             store_id: storeId
         })
         res.send({ newCustomer });
     } catch (err) {
+        console.log(err)
         res.status(401).json(err);
     }
 });

@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
     // #swagger.end
     try {
         const { filmId, storeId } = req.body;
-        if (!isInteger(filmId) || !isInteger(storeId)) {
+        if (!Number.isInteger(filmId) || !Number.isInteger(storeId)) {
             return res.status(400).json({ message: "Movie and store IDs must be integers" });
         }
         const film = await FilmModel.findByPk(filmId);
