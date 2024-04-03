@@ -1,6 +1,7 @@
 const CustomerModel = require("../database/models/customerModel");
 const StoreModel = require("../database/models/storeModel");
 const AddressModel = require("../database/models/addressModel");
+const prompt = require('prompt-sync')({sigint: true});
 
 async function getAllCustomers() {
     try{
@@ -14,9 +15,10 @@ async function getAllCustomers() {
                     model: AddressModel,
                     required: true
                 }
-            ]
+            ],
+            limit: 10 
         })
-        return customers
+        return customers;
     } catch (err) {
        console.log(err);
        throw err;
@@ -48,10 +50,8 @@ async function createCustomer(customer){
 async function listAllCustomers(){
     try{
         const customers = await getAllCustomers()
-        console.log('Customers: ', customers.length )
-       // customers.forEach(customers => console.log(customers.toJSON()));
-        //TO DO: verificar a melhor forma de exibir esses dados, com o JSON, por algum motivo, alguns dados são excluidos da busca
-        // 
+        console.log('Customers: ')
+        customers.forEach(customers => console.log(customers.toJSON()));
     }catch(err){
         console.log(err)
     }
@@ -74,7 +74,7 @@ async function insertCustomer(){
         console.log(customer)
         createCustomer(customer)
     }catch(err){
-        console.err(err);
+        console.error(err);
         throw err;
     }
 }
