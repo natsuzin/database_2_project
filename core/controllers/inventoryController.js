@@ -6,13 +6,6 @@ const StoreModel = require("../database/models/storeModel");
 
 
 router.get('/noInclude', async (req, res) => {
-    // #swagger.start
-    // #swagger.tags = ['Inventory']
-    // #swagger.path = ['/inventory/noInclude']
-    // #swagger.summary = 'Endpoint to get information of inventory
-    // #swagger.method = 'get'
-    // #swagger.produces = ['application/json']
-    // #swagger.end
     try {
         const inventory = await InventoryModel.findAll();
         res.status(201).json(inventory);
@@ -22,13 +15,6 @@ router.get('/noInclude', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    // #swagger.start
-    // #swagger.tags = ['Inventory']
-    // #swagger.path = ['/inventory/']
-    // #swagger.summary = 'Endpoint to get information of all inventory
-    // #swagger.method = 'get'
-    // #swagger.produces = ['application/json']
-    // #swagger.end
     try {
         const inventory = await InventoryModel.findAll({
             include: [
@@ -49,12 +35,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    // #swagger.start
-    // #swagger.tags = ['Inventory']
-    // #swagger.path = ['/inventory/']
-    // #swagger.summary = 'Endpoint to create an inventory
-    // #swagger.method = 'post'
-    // #swagger.end
     try {
         const { filmId, storeId } = req.body;
         if (!Number.isInteger(filmId) || !Number.isInteger(storeId)) {

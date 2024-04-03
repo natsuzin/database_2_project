@@ -37,7 +37,14 @@ router.post('/', async (req, res) => {
     try {
         const { firstName, lastName, email, addressId, storeId } = req.body;
         if (!Number.isInteger(addressId) || !Number.isInteger(storeId)) {
-            return res.status(400).json({ message: "Address and store IDs must be integers" });
+            return res.status(400).json({ 
+                message: "Address and store IDs must be integers." 
+            });
+        }
+        if (firstName.length==0 || lastName.length==0 || email.length==0){
+            return res.status(400).json({
+                message: "No value can be empty."
+            })
         }
         const address = await AddressModel.findByPk(addressId);
         if (!address) {
@@ -45,7 +52,7 @@ router.post('/', async (req, res) => {
         }
         const store = await StoreModel.findByPk(storeId);
         if (!store) {
-            res.status(404).json({ message: "The store doesn´t exist." });
+            res.status(404).json({ message: "The store doesn´t exist." }); 
         }
         const newCustomer = await CustomerModel.create({
             first_name: firstName,

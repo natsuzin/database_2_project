@@ -45,4 +45,15 @@ async function createInventory(inventory) {
     }
 }
 
-module.exports = { getAllInventories, createInventory }
+async function listAllInventories(){
+    try{
+        const inventories = await getAllInventories();
+        console.log('Inventories: ')
+        inventories.forEach(inventories => console.log(inventories.toJSON()));
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+module.exports = { getAllInventories, createInventory, listAllInventories }

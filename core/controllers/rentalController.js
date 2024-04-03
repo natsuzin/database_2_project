@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router(); // 'router' -> cria rotas agindo como controlador de "film"
+const router = express.Router(); // 'router' -> cria rotas agindo como controlador de "rental"
 const RentalModel = require("../database/models/rentalModel");
 const InventoryModel = require("../database/models/inventoryModel");
 const CustomerModel = require("../database/models/customerModel");
@@ -44,9 +44,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { inventoryId, customerId, staffId } = req.body;
+        const { rentalDate, returnDate, inventoryId, customerId, staffId } = req.body;
         if (!Number.isInteger(inventoryId) || !Number.isInteger(customerId) || !Number.isInteger(staffId)) {
-            return res.status(400).json({ message: "Inventory, customer and staff IDs must be integers" });
+            return res.status(400).json({ message: "Inventory, customer and staff IDs must be integers." });
         }
         const inventory = await InventoryModel.findByPk(inventoryId);
         if (!inventory) {
@@ -62,6 +62,8 @@ router.post('/', async (req, res) => {
             res.status(404).json({ message: "The staff doesn´t exist." });
         }
         const newRental = await RentalModel.create({
+            //rental_date: ,
+            //return_date: ,
             inventory_id: inventoryId,
             customer_id: customerId,
             staff_id: staffId

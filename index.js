@@ -4,6 +4,7 @@ require("dotenv").config(); // biblioteca 'dotenv' do node
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger_autogen.json');
 const bodyParser = require('body-parser');
+const db = require("./core/database/server");
 
 db.authenticate().then(() => {
     console.log('Connection has been established successfully.');

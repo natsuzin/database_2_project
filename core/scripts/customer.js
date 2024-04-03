@@ -44,4 +44,39 @@ async function createCustomer(customer){
         throw err;
     }
 }
-module.exports = { getAllCustomers, createCustomer }
+
+async function listAllCustomers(){
+    try{
+        const customers = await getAllCustomers()
+        console.log('Customers: ', customers.length )
+       // customers.forEach(customers => console.log(customers.toJSON()));
+        //TO DO: verificar a melhor forma de exibir esses dados, com o JSON, por algum motivo, alguns dados são excluidos da busca
+        // 
+    }catch(err){
+        console.log(err)
+    }
+}
+
+async function insertCustomer(){
+    try{
+        const customer = {
+            store_id: '',
+            email: '',
+            address_id: '',
+            active: ''
+        }
+        customer.first_name = prompt('Nome: ');
+        customer.last_name = prompt('Sobrenome: ');
+        customer.email = prompt('Email: ');
+        customer.address_id = parseInt(prompt('ID Endereço: '));
+        customer.store_id = parseInt(prompt('ID Loja: '));
+        customer.active = prompt('Ativo (true/false): ') === 'true'
+        console.log(customer)
+        createCustomer(customer)
+    }catch(err){
+        console.err(err);
+        throw err;
+    }
+}
+
+module.exports = { getAllCustomers, createCustomer, listAllCustomers, insertCustomer }

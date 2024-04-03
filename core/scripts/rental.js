@@ -58,4 +58,15 @@ async function createRental(rental){
     }
 }
 
-module.exports = { getAllRentals, createRental }
+async function listAllRentals() {
+    try{
+        const rentals = await getAllRentals();
+        console.log('Rentals: ')
+        rentals.forEach(rentals => console.log(rentals.toJSON()));
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+module.exports = { getAllRentals, createRental, listAllRentals }
