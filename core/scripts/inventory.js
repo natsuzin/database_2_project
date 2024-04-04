@@ -55,5 +55,20 @@ async function listAllInventories(){
     }
 }
 
+async function insertInventory(){
+    try{
+        const inventory = {
+            film_id: '',
+            store_id: '',
+        }
+        inventory.film_id = prompt('ID do Filme: ');
+        inventory.store_id = prompt('ID da Loja: ');
+        console.log('inventário: ', inventory)
+        createInventory(inventory)
+    }catch(err){
+        console.error(err)
+        throw err;
+    }
+}
 
 module.exports = { getAllInventories, createInventory, listAllInventories }

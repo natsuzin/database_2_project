@@ -68,5 +68,26 @@ async function listAllRentals() {
     }
 }
 
+async function insertRental(){
+    try{
+        const rental = {
+            rental_date: '',
+            inventory_id: '',
+            customer_id: '',
+            return_date: '',
+            staff_id:'',
+            last_update: '',
+        }
+        rental.rental_date = prompt('Data de aluguel: ');
+        rental.inventory_id = parseInt(prompt('ID do Inventário: '));
+        rental.customer_id = parseInt(prompt('ID do Cliente: '));
+        rental.return_date = prompt('Data de retorno: ');
+        rental.staff_id = parseInt(prompt('ID do Funcionário: '));
+        rental.last_update = prompt('Última atualização: ');
+        createRental(rental);
+    }catch(err){
+        throw err;
+    }
+}
 
 module.exports = { getAllRentals, createRental, listAllRentals }
