@@ -2,7 +2,7 @@ const RentalModel = require("../database/models/rentalModel");
 const InventoryModel = require("../database/models/inventoryModel");
 const CustomerModel = require("../database/models/customerModel");
 const StaffModel = require("../database/models/staffModel");
-const prompt = require('prompt-sync')({sigint: true});
+const validationInputs = require("../utils/validationInputs");
 
 async function getAllRentals(){
     try {
@@ -72,21 +72,13 @@ async function listAllRentals() {
 
 async function insertRental(){
     try{
-        const rental = {
-            rental_date: '',
-            inventory_id: '',
-            customer_id: '',
-            return_date: '',
-            staff_id:'',
-            last_update: '',
-        }
-        rental.rental_date = prompt('Data de aluguel: ');
-        rental.inventory_id = parseInt(prompt('ID do Inventário: '));
-        rental.customer_id = parseInt(prompt('ID do Cliente: '));
-        rental.return_date = prompt('Data de retorno: ');
-        rental.staff_id = parseInt(prompt('ID do Funcionário: '));
-        rental.last_update = prompt('Última atualização: ');
-        createRental(rental);
+        const rental = {}
+        rental.rental_date = validationInputs('Data de aluguel: ');
+        rental.inventory_id = validationInputs('ID do Inventário: ', false);
+        rental.customer_id = validationInputs('ID do Cliente: ', false);
+        rental.return_date = validationInputs('Data de retorno: ');
+        rental.staff_id = validationInputs('ID do Funcionário: ', false);
+        await createRental(rental);
     }catch(err){
         throw err;
     }

@@ -1,7 +1,7 @@
 const CustomerModel = require("../database/models/customerModel");
 const StoreModel = require("../database/models/storeModel");
 const AddressModel = require("../database/models/addressModel");
-const prompt = require('prompt-sync')({sigint: true});
+const validationInputs = require("../utils/validationInputs");
 
 async function getAllCustomers() {
     try{
@@ -59,20 +59,14 @@ async function listAllCustomers(){
 
 async function insertCustomer(){
     try{
-        const customer = {
-            store_id: '',
-            email: '',
-            address_id: '',
-            active: ''
-        }
-        customer.first_name = prompt('Nome: ');
-        customer.last_name = prompt('Sobrenome: ');
-        customer.email = prompt('Email: ');
-        customer.address_id = parseInt(prompt('ID Endereço: '));
-        customer.store_id = parseInt(prompt('ID Loja: '));
-        customer.active = prompt('Ativo (true/false): ') === 'true'
-        console.log(customer)
-        createCustomer(customer)
+        const customer = {}
+        customer.first_name = validationInputs('Nome: ');
+        customer.last_name = validationInputs('Sobrenome: ');
+        customer.email = validationInputs('Email: ');
+        customer.address_id = validationInputs('ID Endereço: ', false);
+        customer.store_id = validationInputs('ID Loja: ', false);
+        console.log('\nCliente: ', customer)
+        await createCustomer(customer)
     }catch(err){
         console.error(err);
         throw err;

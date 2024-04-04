@@ -1,7 +1,7 @@
 const InventoryModel = require("../database/models/inventoryModel");
 const FilmModel = require("../database/models/filmModel");
 const StoreModel = require("../database/models/storeModel");
-const prompt = require('prompt-sync')({sigint: true});
+const validationInputs = require("../utils/validationInputs");
 
 async function getAllInventories() { 
     try {
@@ -57,14 +57,11 @@ async function listAllInventories(){
 
 async function insertInventory(){
     try{
-        const inventory = {
-            film_id: '',
-            store_id: '',
-        }
-        inventory.film_id = prompt('ID do Filme: ');
-        inventory.store_id = prompt('ID da Loja: ');
-        console.log('inventário: ', inventory)
-        createInventory(inventory)
+        const inventory = {}
+        inventory.film_id = validationInputs('ID do Filme: ', false);
+        inventory.store_id = validationInputs('ID da Loja: ', false);
+        console.log('\nInventário: ', inventory)
+        await createInventory(inventory)
     }catch(err){
         console.error(err)
         throw err;

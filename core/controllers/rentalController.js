@@ -70,7 +70,6 @@ router.post('/', async (req, res) => {
         })
         res.send({ newRental });
     } catch (err) {
-        console.log(err);
         res.status(401).json(err);
     }
 });
