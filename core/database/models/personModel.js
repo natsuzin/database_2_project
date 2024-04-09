@@ -25,7 +25,6 @@ const Person = sequelize.define('person', {
   },
   email: {
     type: DataTypes.STRING(50),
-    defaultValue: null,
     allowNull: false
   },
   phone: {
@@ -46,10 +45,5 @@ const Person = sequelize.define('person', {
     timestamps: false
   }
 );
-
-// (async () => {
-//   await Person.sync({ force: true }); 
-//   console.log("Tabela criada!");
-// })();
 
 module.exports = Person;
