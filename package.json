@@ -6,7 +6,8 @@
   "scripts": {
     "swagger-autogen": "node swagger.js",
     "start": "node swagger.js && node index.js",
-    "input": "node ./core/scripts/start"
+    "input": "node ./core/scripts/M1_1/start",
+    "insert-table": "node ./core/scripts/M1_2/start"
   },
   "author": "",
   "license": "ISC",
