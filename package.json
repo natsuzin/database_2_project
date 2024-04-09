@@ -6,8 +6,9 @@
   "scripts": {
     "swagger-autogen": "node swagger.js",
     "start": "node swagger.js && node index.js",
-    "input": "node ./core/scripts/M1_1/start",
-    "insert-table": "node ./core/scripts/M1_2/start",
+    "m1-1": "node ./core/scripts/M1_1/start",
+    "m1-2": "node ./core/scripts/M1_2/start",
+    "insert-table": "node ./core/scripts/M1_2/insertDataInTable",
     "create-table": "node ./core/scripts/M1_2/createTableByModel"
   },
   "author": "",
