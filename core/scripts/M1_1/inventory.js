@@ -21,27 +21,23 @@ async function getAllInventories() {
         return inventories;
     } catch (err) {
        console.error(err);
-       }
+    }
 }
 
 async function createInventory(inventory) {
     try {
         const { film_id, store_id } = inventory;
-        if (!!Number.isInteger(film_id) || !!Number.isInteger(store_id)) {
-            throw new Error("Movie and store IDs must be integers");
-        }
         const film = await FilmModel.findByPk(film_id);
         if (!film) {
-            throw new Error("The movie doesn't exist.");
+            console.log("The movie doesn't exist.");
         }
         const store = await StoreModel.findByPk(store_id);
         if (!store) {
-            throw new Error("The store doesn't exist.");
+            console.log("The store doesn't exist.");
         }
         await InventoryModel.create(inventory);
     } catch (err) {
         console.log(err);
-        throw err;
     }
 }
 
@@ -64,7 +60,6 @@ async function insertInventory(){
         await createInventory(inventory)
     }catch(err){
         console.error(err)
-        throw err;
     }
 }
 module.exports = { getAllInventories, createInventory, listAllInventories, insertInventory }

@@ -29,7 +29,6 @@ async function getAllRentals(){
         return rental;
     } catch (err) {
         console.error(err);
-        throw err;
     }
 }
 
@@ -37,25 +36,22 @@ async function getAllRentals(){
 async function createRental(rental){
     try {
         const { inventory_id, customer_id, staff_id } = rental;
-        if (!Number.isInteger(inventory_id) || !Number.isInteger(customer_id) || !Number.isInteger(staff_id)) {
-            throw new Error("Inventory, customer and staff IDs must be integers" );
-        }
         const inventory = await InventoryModel.findByPk(inventory_id);
         if (!inventory) {
-            throw new Error("The inventory doesn´t exist." );
+            console.log ("The inventory doesn´t exist." );
         }
         const customer = await CustomerModel.findByPk(customer_id);
         if (!customer) {
-           throw new Error ("The customer doesn´t exist." );
+            console.log  ("The customer doesn´t exist." );
         }
         const staff = await StaffModel.findByPk(staff_id);
         if (!staff) {
-            throw new Error ("The staff doesn´t exist." );
+            console.log ("The staff doesn´t exist." );
         }
+        console.log('RENTAL: ', rental),
         await RentalModel.create(rental)
     } catch (err) {
         console.error(err);
-        throw err;
     }
 }
 
@@ -66,7 +62,6 @@ async function listAllRentals() {
         rentals.forEach(rentals => console.log(rentals.toJSON()));
     }catch(err){
         console.log(err);
-        throw err;
     }
 }
 
@@ -80,7 +75,7 @@ async function insertRental(){
         rental.staff_id = validationInputs('ID do Funcionário: ', false);
         await createRental(rental);
     }catch(err){
-        throw err;
+        console.log (err);
     }
 }
 

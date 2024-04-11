@@ -55,7 +55,7 @@ async function main(){
                 console.log('Opção Inválida!')
             
         }
-        prompt();
+        prompt('\nPressione enter para continuar...\n');
     }
 
 }

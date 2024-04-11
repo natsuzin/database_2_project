@@ -4,30 +4,24 @@ function stringIsEmpty(string) {
   return string.trim() === '';;
 }
 
-function isNotNumber(number) {
-  return !parseInt(number);
-}
-
 function input(text, isString = true) {
+  let read = "";
   if (isString) {
-    let read = "";
     while (stringIsEmpty(read)) {
       read = prompt(text);
       if (stringIsEmpty(read)) {
         console.log("O campo não pode ser vazio.\n");
       }
     }
-    return read;
   } else {
-    let read = "";
-    while (isNotNumber(read)) {
-      read = prompt(text);
-      if (isNotNumber(read)) {
+    while (!Number.isInteger(read)) {
+      read = parseInt(prompt(text));
+      if (!Number.isInteger(read)) {
         console.log("O campo deve conter um valor válido.\n");
       }
     }
-    return parseInt(read);
   }
+  return read;
 }
 
 module.exports = input;
