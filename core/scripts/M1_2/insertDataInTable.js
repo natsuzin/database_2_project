@@ -40,7 +40,7 @@ function parseCSVLine(line) {
 
 async function tableInsertion(content) {
     try {
-        let result = await Person.bulkCreate(content, );
+        await Person.bulkCreate(content, );
         console.log(`Foram inseridos ${content.length} dados`);
     } catch (error) {
         console.error('Erro ao inserir dados:', error);
